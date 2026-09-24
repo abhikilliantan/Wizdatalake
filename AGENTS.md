@@ -29,8 +29,13 @@ Four layers:
 | `tests/fixtures/` | Salesforce / HubSpot sample payloads |
 | `data/incoming/` | File drop zone |
 
+## GitHub
+- Repo: https://github.com/JuliusMutugu/DataLakeSkM
+- Work in small PRs tied to day issues (`[D2]`, `[D3]`, …). Reference issue numbers in commits.
+- Do not expand Phase 2 (full CDC, warehouses, SSO) into MVP.
+
 ## Working rules
-- Prefer implementing against the plan’s day sequence; do not expand Phase 2 (full CDC, warehouses, SSO) into MVP.
+- Prefer implementing against the plan’s day sequence and open GitHub issues.
 - Keep changes scoped; match existing Python style in `storage/`.
 - Never commit secrets from `.env`.
 - After infra changes, verify with `docker compose` health when Docker is available in the sandbox.

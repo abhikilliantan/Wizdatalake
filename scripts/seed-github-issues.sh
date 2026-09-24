@@ -46,14 +46,15 @@ ms_number() {
   gh api "repos/$REPO/milestones" --jq ".[] | select(.title==\"$1\") | .number"
 }
 
-M1=$(ms_number "M1 — Week 1 Foundation & Hub")
-M2=$(ms_number "M2 — Event-driven + CRM + Files")
-M3=$(ms_number "M3 — Streaming + DB extracts")
-M4=$(ms_number "M4 — Hardening & UAT prep")
-MU=$(ms_number "UAT — Sign-off & handover")
+M1="M1 — Week 1 Foundation & Hub"
+M2="M2 — Event-driven + CRM + Files"
+M3="M3 — Streaming + DB extracts"
+M4="M4 — Hardening & UAT prep"
+MU="UAT — Sign-off & handover"
 
 issue() {
   local title="$1" body="$2" labels="$3" milestone="$4"
+  # Prefer title for --milestone (number can fail depending on gh/API)
   gh issue create --repo "$REPO" --title "$title" --body "$body" --label "$labels" --milestone "$milestone"
 }
 

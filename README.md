@@ -26,7 +26,10 @@ python -m pytest tests/ -q
 Ports (host): MinIO `:9006` / console `:9007` · Redpanda `:19092` · Postgres `:5433`
 
 ## Tracking
+Repo: https://github.com/JuliusMutugu/DataLakeSkM  
+
 Work is tracked as GitHub Issues by day (**D1–D24**), milestones **M1–M4**, and acceptance criteria **AC-1…AC-9**.  
+Re-seed board: `./scripts/seed-github-issues.sh`  
 OpenHands + Cursor ACP: `./scripts/start-openhands.sh` → http://localhost:8000/canvas
 
 ## Status
