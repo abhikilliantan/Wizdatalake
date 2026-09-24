@@ -1,0 +1,9 @@
+Day 1 — DataLakeSkM architecture for Sales & Product
+
+We’re building a company-owned data lake: apps, Salesforce/HubSpot, files, and databases land in one place for analytics and AI — without locking us into AWS/Azure/GCP.
+
+Architecture in four layers: (A) presentation/reports people look at → (B) business data sources → (C) System Integration hub we’re delivering now (webhooks + streaming + extracts) → (D) the lake + catalog where every ingest is stored and tracked.
+
+MVP proof: CRM and app events, files, and DB extracts land partitioned and catalogued. Full CDC and warehouse tools are Phase 2.
+
+Ask: review architecture.html + the 20-day plan and sign off scope / source priority.

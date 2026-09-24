@@ -1,0 +1,15 @@
+{
+  "objectId": 451,
+  "propertyName": "email",
+  "propertyValue": "john.smith@example.com",
+  "changeSource": "CRM",
+  "eventId": "100",
+  "subscriptionId": 212121,
+  "portalId": 999999,
+  "appId": 12345,
+  "occurredAt": 1727172000000,
+  "subscriptionType": "contact.propertyChange",
+  "attemptNumber": 0,
+  "objectTypeId": "0-1",
+  "changeFlag": "NEW"
+}

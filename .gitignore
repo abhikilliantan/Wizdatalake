@@ -1,0 +1,29 @@
+# DataLakeSkM
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.log
+.DS_Store
+.oh-write-test
+
+# Local ingest drop zone (keep folder, ignore payloads)
+data/incoming/*
+!data/incoming/.gitkeep
+
+# Brag render intermediates (keep final mp4 / copy)
+brag-output/work/
+
+# Editor / agent local
+.idea/
+.vscode/
+*.swp
