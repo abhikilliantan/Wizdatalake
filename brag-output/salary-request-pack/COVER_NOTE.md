@@ -29,3 +29,13 @@
 ## One paragraph for the email
 
 > Day 2 delivery is complete and was demonstrated live: multi-source industrial/business data lands in a self-hosted MinIO lake with a Postgres audit catalog, and an agent serving API now returns real payloads from that lake (discover → fetch → optional presign). Automated tests: 19 passed. Work is on Julius PR #46 and merged into Abhishek’s Wizdatalake main. Supporting evidence is attached. This is the enforceable foundation under NEO—not a slide deck.
+
+## Video proof (send this)
+
+| File | What it is |
+|------|------------|
+| **`day2-live-demo.mp4`** | Screen recording of the **real** Day-2 simulation (health → ingest → agent serve → stream → SQL → pytest) |
+| `day2-live-demo.cast` | Asciinema source (replayable) |
+| `screenshots/` | API docs / catalog / health captures |
+
+Play the MP4 locally or attach to email/Slack. This is the live system, not a mockup.
