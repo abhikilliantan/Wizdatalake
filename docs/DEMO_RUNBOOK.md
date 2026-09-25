@@ -58,6 +58,7 @@ Content-Type: application/json
 | AC-1 | Salesforce → `raw/source=salesforce/…` |
 | AC-2 | HubSpot → `raw/source=hubspot/…` |
 | AC-3 | Custom app → MinIO |
+| — | SAP BusinessPartner → `raw/source=sap/…` (demo extension) |
 | AC-7 | `catalog_id` + SQL rows |
 | AC-9 | Architecture + alignment docs available |
 
