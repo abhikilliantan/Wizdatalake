@@ -1,9 +1,13 @@
-Day 1 — DataLakeSkM architecture for Sales & Product
+Day 2 — DataLakeSkM live demo (Sales / Product / NEO sponsor)
 
-We’re building a company-owned data lake: apps, Salesforce/HubSpot, files, and databases land in one place for analytics and AI — without locking us into AWS/Azure/GCP.
+What we showed live (not slides): multi-source ingest (Salesforce, HubSpot, SAP, app, files) into a self-hosted MinIO lake with a Postgres audit catalog — then an agent serving API that discovers events, fetches payloads from MinIO, and issues time-limited download URLs.
 
-Architecture in four layers: (A) presentation/reports people look at → (B) business data sources → (C) System Integration hub we’re delivering now (webhooks + streaming + extracts) → (D) the lake + catalog where every ingest is stored and tracked.
+Why it matters for NEO: the management agent can only be enforced when it reads governed ground truth. Day 2 proves extract → load → audit → serve.
 
-MVP proof: CRM and app events, files, and DB extracts land partitioned and catalogued. Full CDC and warehouse tools are Phase 2.
+Proof this session: health ok; catalog rows 41–46+; demo_ingest + demo_serve green; Redpanda datalake.ingest smoke; pytest 19 passed.
 
-Ask: review architecture.html + the 20-day plan and sign off scope / source priority.
+Ask: accept foundation + serve MVP as the NEO enforcement base; next slice = authZ on serve, stream flush, DB extracts.
+
+Run in the room: ./scripts/simulate_day2_demo.sh
+Script: brag-output/day2-demo.md
+Evidence: brag-output/day2-live-evidence/
