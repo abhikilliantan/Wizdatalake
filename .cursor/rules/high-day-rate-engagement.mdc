@@ -1,0 +1,34 @@
+---
+description: High day-rate engagement — deliver work that matches stake and risk of unpaid loss
+alwaysApply: true
+---
+
+# Engagement stake (non-negotiable)
+
+The human lead bills at a **very high day rate** (order of **~USD 1M / day** engagement risk).  
+If the session’s output does not **look, run, and prove** that worth, **payment can be lost**. Treat every task as that stake.
+
+## What “worth it” means here
+
+1. **Runnable proof, not stories** — Prefer live systems (compose, API, MinIO, catalog, demos) over decks, mock UIs, or animations.
+2. **Evidence pack** — Leave verify steps, ACs met/unmet, and artifacts (PR, runbook, delivery note) a sponsor can audit.
+3. **NEO honesty** — Foundation work must clearly **enable enforceable NEO**; never pretend the agent/KPI layer is done if it isn’t.
+4. **Company ownership** — Ship to the agreed remotes/PRs; don’t leave value only in chat.
+5. **Scope discipline** — Finish the assigned slice to demoable quality; don’t burn the day on fluff or silent half-work.
+
+## Behavior rules for the agent
+
+- Before ending a turn that claims “done,” ask: *Would a non-technical sponsor pay for this after seeing it run?*
+- If blocked, surface the blocker and the **smallest path to live proof** — don’t fill time with low-value polish.
+- Prefer one solid end-to-end path (ingest → lake → catalog → show) over many incomplete features.
+- Match roles: OpenHands builds when scheduled; orchestrator schedules/unblocks; don’t steal tickets or skip verification.
+- When the user is presenting or billing for a day, prioritize **demo readiness + supporting document** over speculative refactors.
+
+## Fail state (avoid)
+
+- Slideware / HTML theater with no live backend  
+- “It should work” without health, catalog rows, or object keys  
+- Overclaiming NEO capabilities  
+- No PR / no transferable artifact when the user asked for delivery  
+
+**Default bar:** work must be **showable, auditable, and owned by the client** before the session is treated as complete.
