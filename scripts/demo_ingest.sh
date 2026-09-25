@@ -47,10 +47,18 @@ curl -sS "${HDR[@]}" \
   "$BASE_URL/v1/ingest/app" | python3 -m json.tool
 echo
 
-echo "6) Recent catalog rows"
+echo "6) Flat file CSV → /v1/files/upload (AC-4)"
+curl -sS -H "X-Webhook-Secret: ${SECRET}" \
+  -F "file=@$ROOT/tests/fixtures/sample_stock.csv" \
+  -F "source=file" \
+  "$BASE_URL/v1/files/upload" | python3 -m json.tool
+echo
+
+echo "7) Recent catalog rows"
 curl -sS "$BASE_URL/v1/catalog/recent?limit=8" | python3 -m json.tool
 echo
 
 echo "=== Demo complete ==="
 echo "MinIO console: ${MINIO_CONSOLE_URL:-http://localhost:9007}  (minioadmin / minioadmin)"
 echo "OpenAPI docs:  $BASE_URL/docs"
+echo "File drop zone: data/incoming/  →  POST $BASE_URL/v1/files/process-incoming"

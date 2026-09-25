@@ -292,6 +292,22 @@ Never commit `.env`.
 | Docker compose + `ObjectStorage` + partition tests | Landed (Day 1) |
 | Catalog SQL init | Landed |
 | OpenHands ↔ Cursor ACP | Configured for this repo |
-| **Next engineering issue** | **[#5 D2 — Platform health](https://github.com/JuliusMutugu/DataLakeSkM/issues/5)** |
+| Webhooks (SF / HubSpot / SAP / app) | Landed on delivery branch |
+| Flat file upload + drop folder (**AC-4**, #14) | Landed — `POST /v1/files/upload`, `data/incoming/` |
+| **Next engineering issue** | **[#16 D11 — Redpanda topics](https://github.com/JuliusMutugu/DataLakeSkM/issues/16)** (after D10 PR merge) |
 
-Allocate **#5** to OpenHands to continue.
+### Flat file ingest (AC-4)
+
+```bash
+# Multipart upload
+curl -H "X-Webhook-Secret: $WEBHOOK_SHARED_SECRET" \
+  -F "file=@tests/fixtures/sample_stock.csv" -F "source=file" \
+  http://localhost:8000/v1/files/upload
+
+# Or drop CSV/JSON into data/incoming/ then:
+curl -X POST -H "X-Webhook-Secret: $WEBHOOK_SHARED_SECRET" \
+  http://localhost:8000/v1/files/process-incoming
+# CLI: PYTHONPATH=. python -m connectors.process_incoming
+```
+
+Objects land at `raw/source=file/year=YYYY/month=MM/day=DD/…`.
