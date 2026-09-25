@@ -1,0 +1,19 @@
+{
+  "specversion": "1.0",
+  "type": "sap.s4.beh.businesspartner.v1.BusinessPartner.Changed.v1",
+  "source": "/default/sap.s4.beh/0000000001",
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "time": "2026-09-25T05:15:00.000Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "BusinessPartner": "1000123",
+    "BusinessPartnerCategory": "2",
+    "BusinessPartnerFullName": "Acme Industrial Ltd",
+    "BusinessPartnerUUID": "00163e0f-9a2b-1edb-a1c2-d3e4f5678901",
+    "SearchTerm1": "ACME",
+    "Plant": "Nairobi-01",
+    "SystemID": "S4H_PROD",
+    "LastChangeDateTime": "2026-09-25T05:14:58.000Z",
+    "ChangedFields": ["BusinessPartnerFullName", "SearchTerm1"]
+  }
+}

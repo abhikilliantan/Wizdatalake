@@ -11,6 +11,7 @@ from catalog.client import CatalogClient, CatalogWriteError
 from connectors.adapters.generic import GenericAdapter
 from connectors.adapters.hubspot import HubSpotAdapter
 from connectors.adapters.salesforce import SalesforceAdapter
+from connectors.adapters.sap import SAPAdapter
 from connectors.envelope import EventEnvelope
 from connectors.registry import SourceRegistry
 from storage import ObjectStorage, StorageError
@@ -143,10 +144,11 @@ class IntegrationHub:
 
 
 def build_default_registry() -> SourceRegistry:
-    """Register Salesforce, HubSpot, and generic app adapters."""
+    """Register Salesforce, HubSpot, SAP, and generic app adapters."""
     registry = SourceRegistry()
     registry.register(SalesforceAdapter())
     registry.register(HubSpotAdapter())
+    registry.register(SAPAdapter())
     registry.register(GenericAdapter(source_name="app"))
     registry.register(GenericAdapter(source_name="custom"))
     return registry

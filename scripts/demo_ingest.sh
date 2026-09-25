@@ -35,14 +35,20 @@ curl -sS "${HDR[@]}" \
   "$BASE_URL/v1/ingest/hubspot" | python3 -m json.tool
 echo
 
-echo "4) Custom app event → /v1/ingest/app"
+echo "4) SAP BusinessPartner fixture → /v1/ingest/sap"
+curl -sS "${HDR[@]}" \
+  -d @"$ROOT/tests/fixtures/sap_business_partner_changed.json" \
+  "$BASE_URL/v1/ingest/sap" | python3 -m json.tool
+echo
+
+echo "5) Custom app event → /v1/ingest/app"
 curl -sS "${HDR[@]}" \
   -d '{"event_type":"order.created","object_id":"demo-ord-001","payload":{"sku":"WIDGET","qty":3,"plant":"Nairobi-01"},"tags":{"demo":"true"}}' \
   "$BASE_URL/v1/ingest/app" | python3 -m json.tool
 echo
 
-echo "5) Recent catalog rows"
-curl -sS "$BASE_URL/v1/catalog/recent?limit=5" | python3 -m json.tool
+echo "6) Recent catalog rows"
+curl -sS "$BASE_URL/v1/catalog/recent?limit=8" | python3 -m json.tool
 echo
 
 echo "=== Demo complete ==="

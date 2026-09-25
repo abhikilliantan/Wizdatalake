@@ -32,6 +32,19 @@ def test_hubspot_adapter_fixture() -> None:
     assert envelope.tags["property"] == "email"
 
 
+def test_sap_adapter_fixture() -> None:
+    from connectors.adapters.sap import SAPAdapter
+
+    body = json.loads((FIXTURES / "sap_business_partner_changed.json").read_text())
+    envelope = SAPAdapter().adapt(body)
+    assert envelope.source == "sap"
+    assert envelope.event_type == "businesspartner.changed"
+    assert envelope.object_id == "1000123"
+    assert envelope.tags["erp"] == "sap"
+    assert envelope.tags["plant"] == "Nairobi-01"
+    assert envelope.tags["system_id"] == "S4H_PROD"
+
+
 def test_generic_adapter() -> None:
     envelope = GenericAdapter(source_name="app").adapt(
         {

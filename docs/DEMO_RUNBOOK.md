@@ -36,7 +36,7 @@ Open in browser:
 2. **Health** — Show `/health` → `minio_ok`, `catalog_ok`, registered sources.
 3. **Salesforce** — POST fixture via `/docs` or demo script → show `object_key` partition path.
 4. **HubSpot** — Same flow, different source tag.
-5. **Custom app** — Plant/order style event (ties to industry story without claiming NEO).
+5. **SAP** — BusinessPartner CloudEvent → `raw/source=sap/…` (ERP industrial story).
 6. **Catalog** — `/v1/catalog/recent` or SQL: every write has a row.
 7. **MinIO console** — Browse `datalake-raw` → `raw/source=…/year=…/month=…/day=…`.
 
