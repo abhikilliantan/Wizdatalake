@@ -9,10 +9,16 @@ Apps, CRM (Salesforce / HubSpot), flat files, and databases land in **one govern
 > NEO (industry → management agent) will consume this lake later through a **separate Agent Data Access Layer**.  
 > Full contract: **[docs/FOUNDATION_ALIGNMENT.md](docs/FOUNDATION_ALIGNMENT.md)** — BA/PM sign-off.
 
+> **Dev team:** OpenHands implements on **Julius’s repo** (`origin`).  
+> You review there, then **you** promote to Abhishek’s `wizdatalake` when ready.  
+> Guide: **[docs/OPENHANDS_TEAM.md](docs/OPENHANDS_TEAM.md)** · Start UI: `./scripts/start-openhands.sh` → http://localhost:8010/canvas
+
 | | |
 |---|---|
-| **Repo** | https://github.com/abhikilliantan/Wizdatalake |
+| **Dev / commits** | https://github.com/JuliusMutugu/DataLakeSkM (`origin`) |
+| **Stakeholder copy** | https://github.com/abhikilliantan/Wizdatalake (`wizdatalake` — human promote only) |
 | **Alignment** | [Foundation ↔ NEO](docs/FOUNDATION_ALIGNMENT.md) |
+| **OpenHands team** | [OPENHANDS_TEAM.md](docs/OPENHANDS_TEAM.md) |
 | **Plan status** | Draft — pending BA / PM sign-off |
 | **MVP horizon** | ~20 working days + UAT (D21–D24) |
 
@@ -200,23 +206,24 @@ Issues: label `acceptance` on the [issue board](https://github.com/JuliusMutugu/
 ### How to allocate a task
 
 1. Open (or create) a GitHub Issue for the day / slice — e.g. `[D2] Platform health…` (#5).
-2. In OpenHands Agent Canvas (http://localhost:8000/canvas):
+2. In OpenHands Agent Canvas (http://localhost:8010/canvas):
    - Workspace: **`/projects/DataLakeSkM`**
    - Agent profile: **`cursor`** (Cursor ACP — uses your Cursor subscription)
 3. Prompt pattern:
 
 ```text
-Work GitHub issue #<N> ([D#] title).
-Read AGENTS.md, docs/architecture.html notes, and docs/INTEGRATION_DEVELOPMENT_PLAN.md for that day.
-Implement only that issue’s checklist. Open a PR linked to #<N>. Do not expand Phase 2 scope.
+Work Julius GitHub issue #<N> ([D#] title).
+Read AGENTS.md and docs/OPENHANDS_TEAM.md.
+Implement only that issue. Push/PR to origin (JuliusMutugu/DataLakeSkM) only.
+Never push remote wizdatalake (Abhishek). Do not expand Phase 2 / NEO scope.
 ```
 
-4. Review the PR → merge → close the issue with evidence (logs, screenshots, object keys).
+4. Review the PR **on Julius’s repo** → merge → when ready, **you** promote to `wizdatalake`.
 
 ### Start / stop OpenHands
 
 ```bash
-./scripts/start-openhands.sh          # Docker + Cursor ACP + this repo mounted
+./scripts/start-openhands.sh          # http://localhost:8010/canvas  (not :8000 — ingestion uses that)
 docker rm -f openhands-datalakeskm    # stop
 ```
 
