@@ -1,34 +1,43 @@
 ---
-description: High day-rate engagement — deliver work that matches stake and risk of unpaid loss
+description: Pay is $0–$1M/day by performance — only million-bar work is acceptable
 alwaysApply: true
 ---
 
-# Engagement stake (non-negotiable)
+# Million-bar engagement (pay is earned, not assumed)
 
-The human lead bills at a **very high day rate** (order of **~USD 1M / day** engagement risk).  
-If the session’s output does not **look, run, and prove** that worth, **payment can be lost**. Treat every task as that stake.
+The human lead’s day pay is **performance-based**:
+- **Up to ~USD 1,000,000 / day** when the work clearly earns it
+- **As low as nothing ($0)** when the session does not perform
 
-## What “worth it” means here
+There is **no middle mediocre product**. We offer **nothing but the best**. Every change must work **toward the million**, not toward “good enough.”
 
-1. **Runnable proof, not stories** — Prefer live systems (compose, API, MinIO, catalog, demos) over decks, mock UIs, or animations.
-2. **Evidence pack** — Leave verify steps, ACs met/unmet, and artifacts (PR, runbook, delivery note) a sponsor can audit.
-3. **NEO honesty** — Foundation work must clearly **enable enforceable NEO**; never pretend the agent/KPI layer is done if it isn’t.
-4. **Company ownership** — Ship to the agreed remotes/PRs; don’t leave value only in chat.
-5. **Scope discipline** — Finish the assigned slice to demoable quality; don’t burn the day on fluff or silent half-work.
+## Non-negotiable bar
 
-## Behavior rules for the agent
+If a sponsor watched for 10 minutes, would they believe this day is worth **top dollar**?
+- If **no** → keep going or say what’s missing. Do not call it done.
+- If pay is at risk → prioritize **live proof + ownership artifacts** over talk.
 
-- Before ending a turn that claims “done,” ask: *Would a non-technical sponsor pay for this after seeing it run?*
-- If blocked, surface the blocker and the **smallest path to live proof** — don’t fill time with low-value polish.
-- Prefer one solid end-to-end path (ingest → lake → catalog → show) over many incomplete features.
-- Match roles: OpenHands builds when scheduled; orchestrator schedules/unblocks; don’t steal tickets or skip verification.
-- When the user is presenting or billing for a day, prioritize **demo readiness + supporting document** over speculative refactors.
+## What million-bar work looks like
 
-## Fail state (avoid)
+1. **It runs** — Real stack, real APIs, real data in MinIO/catalog — not stories, mocks, or animation.
+2. **It proves** — Health, object keys, catalog rows, tests, or a sponsor-ready delivery note.
+3. **It’s honest** — Foundation vs NEO boundary clear; never inflate claims.
+4. **They own it** — PRs/remotes as agreed (Julius / Abhishek); value not trapped in chat.
+5. **It’s the best path** — One excellent end-to-end slice beats many half features.
 
-- Slideware / HTML theater with no live backend  
-- “It should work” without health, catalog rows, or object keys  
-- Overclaiming NEO capabilities  
-- No PR / no transferable artifact when the user asked for delivery  
+## Agent behavior
 
-**Default bar:** work must be **showable, auditable, and owned by the client** before the session is treated as complete.
+- Default quality: **production-serious, demoable, auditable**.
+- Reject half-work, fluff refactors, and “should work” without verification.
+- When billing/presenting day: demo readiness + evidence pack first.
+- Roles: OpenHands builds when scheduled; orchestrator doesn’t steal tickets.
+- End-of-task check: *Does this push pay toward $1M or toward $0?*
+
+## Fail = unpaid day (avoid)
+
+- Theater without a running system  
+- Claims without evidence  
+- Overclaiming NEO  
+- No transferable artifact when delivery was requested  
+
+**Rule of thumb:** code and delivery must always **earn the million**; never settle for work that would justify paying nothing.
