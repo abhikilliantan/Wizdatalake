@@ -127,20 +127,81 @@ class CatalogClient:
 
     def recent(self, *, limit: int = 20) -> list[dict[str, Any]]:
         """Return the latest catalog rows (for health / demo)."""
+        return self.search(limit=limit, status=None)
+
+    def get_by_id(self, event_id: int) -> Optional[dict[str, Any]]:
+        """Return one catalog row by primary key, or ``None``."""
         sql = """
             SELECT id, object_key, source, event_type, object_id,
-                   status, byte_size, created_at
+                   content_type, status, byte_size, tags, error_message, created_at
             FROM ingestion_events
+            WHERE id = %(id)s
+        """
+        try:
+            with self._connect() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, {"id": event_id})
+                    row = cur.fetchone()
+        except Exception as exc:  # noqa: BLE001
+            raise CatalogWriteError(f"Failed to read catalog id={event_id}: {exc}") from exc
+        return dict(row) if row else None
+
+    def get_by_object_key(self, object_key: str) -> Optional[dict[str, Any]]:
+        """Return the newest catalog row for an object key, if any."""
+        sql = """
+            SELECT id, object_key, source, event_type, object_id,
+                   content_type, status, byte_size, tags, created_at
+            FROM ingestion_events
+            WHERE object_key = %(object_key)s
+            ORDER BY created_at DESC
+            LIMIT 1
+        """
+        try:
+            with self._connect() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, {"object_key": object_key})
+                    row = cur.fetchone()
+        except Exception as exc:  # noqa: BLE001
+            raise CatalogWriteError(f"Failed to read catalog key={object_key}: {exc}") from exc
+        return dict(row) if row else None
+
+    def search(
+        self,
+        *,
+        source: Optional[str] = None,
+        event_type: Optional[str] = None,
+        status: Optional[str] = "stored",
+        limit: int = 20,
+    ) -> list[dict[str, Any]]:
+        """Filter catalog rows for agent discovery."""
+        limit = max(1, min(int(limit), 200))
+        clauses = ["1=1"]
+        params: dict[str, Any] = {"limit": limit}
+        if status:
+            clauses.append("status = %(status)s")
+            params["status"] = status
+        if source:
+            clauses.append("source = %(source)s")
+            params["source"] = source.strip().lower()
+        if event_type:
+            clauses.append("event_type = %(event_type)s")
+            params["event_type"] = event_type
+        where = " AND ".join(clauses)
+        sql = f"""
+            SELECT id, object_key, source, event_type, object_id,
+                   content_type, status, byte_size, tags, created_at
+            FROM ingestion_events
+            WHERE {where}
             ORDER BY created_at DESC
             LIMIT %(limit)s
         """
         try:
             with self._connect() as conn:
                 with conn.cursor() as cur:
-                    cur.execute(sql, {"limit": limit})
+                    cur.execute(sql, params)
                     rows = cur.fetchall()
         except Exception as exc:  # noqa: BLE001
-            raise CatalogWriteError(f"Failed to query catalog: {exc}") from exc
+            raise CatalogWriteError(f"Failed to search catalog: {exc}") from exc
         return [dict(r) for r in rows]
 
     def ping(self) -> bool:

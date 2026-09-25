@@ -257,6 +257,44 @@ class ObjectStorage:
 
         return {tag["Key"]: tag["Value"] for tag in response.get("TagSet", [])}
 
+    def get_bytes(self, key: str) -> tuple[bytes, dict[str, str]]:
+        """Download object body and useful response metadata.
+
+        Returns ``(body, meta)`` where ``meta`` includes ``ContentType`` when present.
+        """
+        try:
+            response = self._client.get_object(
+                Bucket=self.settings.bucket,
+                Key=key,
+            )
+        except ClientError as exc:
+            code = exc.response.get("Error", {}).get("Code", "")
+            if code in {"404", "NoSuchKey", "NotFound"}:
+                raise StorageError(f"Object not found: '{key}'") from exc
+            raise StorageError(f"get_object failed for '{key}': {exc}") from exc
+        except BotoCoreError as exc:
+            raise StorageError(f"get_object failed for '{key}': {exc}") from exc
+
+        body = response["Body"].read()
+        meta = {
+            "content_type": response.get("ContentType") or "application/octet-stream",
+            "content_length": str(response.get("ContentLength", len(body))),
+            "etag": (response.get("ETag") or "").strip('"'),
+        }
+        return body, meta
+
+    def presign_get(self, key: str, *, expires_seconds: int = 3600) -> str:
+        """Return a time-limited GET URL for an external agent/app."""
+        expires = max(60, min(int(expires_seconds), 86400))
+        try:
+            return self._client.generate_presigned_url(
+                "get_object",
+                Params={"Bucket": self.settings.bucket, "Key": key},
+                ExpiresIn=expires,
+            )
+        except (ClientError, BotoCoreError) as exc:
+            raise StorageError(f"presign failed for '{key}': {exc}") from exc
+
     def object_exists(self, key: str) -> bool:
         """Return ``True`` if ``key`` exists in the configured bucket."""
         try:
