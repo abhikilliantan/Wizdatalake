@@ -1,0 +1,358 @@
+# Day 2 live demo evidence
+Captured: 2026-09-25T13:23:12Z
+
+## 1 Health
+{
+    "status": "ok",
+    "app": "DataLakeSkM",
+    "minio_ok": true,
+    "catalog_ok": true,
+    "sources": [
+        "app",
+        "custom",
+        "hubspot",
+        "salesforce",
+        "sap"
+    ]
+}
+
+## 2 Ingest (SF / HubSpot / SAP / app / file)
+=== DataLakeSkM demo ===
+API: http://localhost:8000
+
+1) Health
+{
+    "status": "ok",
+    "app": "DataLakeSkM",
+    "minio_ok": true,
+    "catalog_ok": true,
+    "sources": [
+        "app",
+        "custom",
+        "hubspot",
+        "salesforce",
+        "sap"
+    ]
+}
+
+2) Salesforce fixture → /v1/ingest/salesforce
+{
+    "status": "stored",
+    "source": "salesforce",
+    "event_type": "contact.update",
+    "object_id": "0035g00000XXXXX",
+    "object_key": "raw/source=salesforce/year=2024/month=09/day=24/contact.update_0035g00000XXXXX.json",
+    "catalog_id": 41,
+    "byte_size": 662,
+    "message": "Event stored in raw data lake"
+}
+
+3) HubSpot fixture → /v1/ingest/hubspot
+{
+    "status": "stored",
+    "source": "hubspot",
+    "event_type": "contact.propertyChange",
+    "object_id": "451",
+    "object_key": "raw/source=hubspot/year=2024/month=09/day=24/contact.propertychange_451.json",
+    "catalog_id": 42,
+    "byte_size": 302,
+    "message": "Event stored in raw data lake"
+}
+
+4) SAP BusinessPartner fixture → /v1/ingest/sap
+{
+    "status": "stored",
+    "source": "sap",
+    "event_type": "businesspartner.changed",
+    "object_id": "1000123",
+    "object_key": "raw/source=sap/year=2026/month=09/day=25/businesspartner.changed_1000123.json",
+    "catalog_id": 43,
+    "byte_size": 590,
+    "message": "Event stored in raw data lake"
+}
+
+5) Custom app event → /v1/ingest/app
+{
+    "status": "stored",
+    "source": "app",
+    "event_type": "order.created",
+    "object_id": "demo-ord-001",
+    "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_demo-ord-001.json",
+    "catalog_id": 44,
+    "byte_size": 45,
+    "message": "Event stored in raw data lake"
+}
+
+6) Flat file CSV → /v1/files/upload (AC-4)
+{
+    "status": "stored",
+    "source": "file",
+    "event_type": "file.csv",
+    "object_id": "00461364-38b3-4653-ad54-4ccf4f4b456e",
+    "object_key": "raw/source=file/year=2026/month=09/day=25/file.csv_00461364-38b3-4653-ad54-4ccf4f4b456e.json",
+    "catalog_id": 45,
+    "byte_size": 214,
+    "message": "File 'sample_stock.csv' stored in raw data lake"
+}
+
+7) Recent catalog rows
+{
+    "count": 8,
+    "events": [
+        {
+            "id": 45,
+            "object_key": "raw/source=file/year=2026/month=09/day=25/file.csv_00461364-38b3-4653-ad54-4ccf4f4b456e.json",
+            "source": "file",
+            "event_type": "file.csv",
+            "object_id": "00461364-38b3-4653-ad54-4ccf4f4b456e",
+            "status": "stored",
+            "byte_size": 214,
+            "created_at": "2026-09-25T13:23:13.044041Z"
+        },
+        {
+            "id": 44,
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_demo-ord-001.json",
+            "source": "app",
+            "event_type": "order.created",
+            "object_id": "demo-ord-001",
+            "status": "stored",
+            "byte_size": 45,
+            "created_at": "2026-09-25T13:23:12.969072Z"
+        },
+        {
+            "id": 43,
+            "object_key": "raw/source=sap/year=2026/month=09/day=25/businesspartner.changed_1000123.json",
+            "source": "sap",
+            "event_type": "businesspartner.changed",
+            "object_id": "1000123",
+            "status": "stored",
+            "byte_size": 590,
+            "created_at": "2026-09-25T13:23:12.882034Z"
+        },
+        {
+            "id": 42,
+            "object_key": "raw/source=hubspot/year=2024/month=09/day=24/contact.propertychange_451.json",
+            "source": "hubspot",
+            "event_type": "contact.propertyChange",
+            "object_id": "451",
+            "status": "stored",
+            "byte_size": 302,
+            "created_at": "2026-09-25T13:23:12.809368Z"
+        },
+        {
+            "id": 41,
+            "object_key": "raw/source=salesforce/year=2024/month=09/day=24/contact.update_0035g00000XXXXX.json",
+            "source": "salesforce",
+            "event_type": "contact.update",
+            "object_id": "0035g00000XXXXX",
+            "status": "stored",
+            "byte_size": 662,
+            "created_at": "2026-09-25T13:23:12.723316Z"
+        },
+        {
+            "id": 40,
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+            "source": "app",
+            "event_type": "order.created",
+            "object_id": "agent-demo-001",
+            "status": "stored",
+            "byte_size": 49,
+            "created_at": "2026-09-25T13:18:40.980966Z"
+        },
+        {
+            "id": 39,
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+            "source": "app",
+            "event_type": "order.created",
+            "object_id": "agent-demo-001",
+            "status": "stored",
+            "byte_size": 49,
+            "created_at": "2026-09-25T13:13:59.735375Z"
+        },
+        {
+            "id": 38,
+            "object_key": "raw/source=file/year=2026/month=09/day=25/file.csv_b967aacd-808b-4340-9ec0-a3188e2600e9.json",
+            "source": "file",
+            "event_type": "file.csv",
+            "object_id": "b967aacd-808b-4340-9ec0-a3188e2600e9",
+            "status": "stored",
+            "byte_size": 214,
+            "created_at": "2026-09-25T11:14:42.975227Z"
+        }
+    ]
+}
+
+=== Demo complete ===
+MinIO console: http://localhost:9007  (minioadmin / minioadmin)
+OpenAPI docs:  http://localhost:8000/docs
+File drop zone: data/incoming/  →  POST http://localhost:8000/v1/files/process-incoming
+
+## 3 Agent serve
+=== Serve-layer demo (agent access) ===
+API: http://localhost:8000
+
+1) Health
+{
+    "status": "ok",
+    "app": "DataLakeSkM",
+    "minio_ok": true,
+    "catalog_ok": true,
+    "sources": [
+        "app",
+        "custom",
+        "hubspot",
+        "salesforce",
+        "sap"
+    ]
+}
+
+2) Ensure a fresh app event exists
+{
+    "status": "stored",
+    "source": "app",
+    "event_type": "order.created",
+    "object_id": "agent-demo-001",
+    "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+    "catalog_id": 46,
+    "byte_size": 49,
+    "message": "Event stored in raw data lake"
+}
+
+3) Agent discovers events (filter source=app)
+{
+    "count": 5,
+    "events": [
+        {
+            "id": 46,
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+            "source": "app",
+            "event_type": "order.created",
+            "object_id": "agent-demo-001",
+            "status": "stored",
+            "byte_size": 49,
+            "created_at": "2026-09-25T13:23:13.341924Z"
+        },
+        {
+            "id": 44,
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_demo-ord-001.json",
+            "source": "app",
+            "event_type": "order.created",
+            "object_id": "demo-ord-001",
+            "status": "stored",
+            "byte_size": 45,
+            "created_at": "2026-09-25T13:23:12.969072Z"
+        },
+        {
+            "id": 40,
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+            "source": "app",
+            "event_type": "order.created",
+            "object_id": "agent-demo-001",
+            "status": "stored",
+            "byte_size": 49,
+            "created_at": "2026-09-25T13:18:40.980966Z"
+        },
+        {
+            "id": 39,
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+            "source": "app",
+            "event_type": "order.created",
+            "object_id": "agent-demo-001",
+            "status": "stored",
+            "byte_size": 49,
+            "created_at": "2026-09-25T13:13:59.735375Z"
+        },
+        {
+            "id": 36,
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_demo-ord-001.json",
+            "source": "app",
+            "event_type": "order.created",
+            "object_id": "demo-ord-001",
+            "status": "stored",
+            "byte_size": 45,
+            "created_at": "2026-09-25T11:14:42.757175Z"
+        }
+    ]
+}
+Using catalog_id=46
+
+4) Agent fetches payload from MinIO via catalog id
+{
+    "catalog_id": 46,
+    "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+    "source": "app",
+    "event_type": "order.created",
+    "object_id": "agent-demo-001",
+    "content_type": "application/json",
+    "byte_size": 49,
+    "payload": {
+        "sku": "NEO-WIDGET",
+        "qty": 5,
+        "plant": "Nairobi-01"
+    },
+    "message": "Object served from raw data lake"
+}
+
+5) Presigned URL for external application download
+{
+    "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+    "expires_seconds": 3600,
+    "url": "http://localhost:9006/datalake-raw/raw/source%3Dapp/year%3D2026/month%3D09/day%3D25/order.created_agent-demo-001.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20260925%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260925T132313Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=b17cb4387a69ed004667d69559f1dab44093a9aa64c855272c986b4fc5e580b2",
+    "message": "Time-limited GET URL for external download"
+}
+
+=== Serve demo complete ===
+OpenAPI: http://localhost:8000/docs  (tag: serve)
+
+## 4 Streaming smoke
+2026-09-25 16:23:13,932 INFO streaming.topics Topic already exists: datalake.ingest
+2026-09-25 16:23:14,449 INFO streaming.smoke Produced key=smoke-4d5a2cc4c742452db64273f10bed175a topic=datalake.ingest
+2026-09-25 16:23:14,589 INFO streaming.smoke Smoke OK topic=datalake.ingest offset=5 partition=0
+{
+  "ok": true,
+  "topic": "datalake.ingest",
+  "produced_key": "smoke-4d5a2cc4c742452db64273f10bed175a",
+  "consumed": {
+    "topic": "datalake.ingest",
+    "partition": 0,
+    "offset": 5,
+    "key": "smoke-4d5a2cc4c742452db64273f10bed175a",
+    "body": {
+      "event_type": "streaming.smoke",
+      "object_id": "smoke-4d5a2cc4c742452db64273f10bed175a",
+      "event_time": "2026-09-25T13:23:13.937475+00:00",
+      "payload": {
+        "hello": "redpanda",
+        "marker": "smoke-4d5a2cc4c742452db64273f10bed175a"
+      },
+      "tags": {
+        "smoke": "true"
+      }
+    }
+  },
+  "bootstrap": "localhost:19092"
+}
+
+## 5 Catalog SQL (latest 8)
+ id |   source   |       event_type        | status |          created_at           
+----+------------+-------------------------+--------+-------------------------------
+ 46 | app        | order.created           | stored | 2026-09-25 13:23:13.341924+00
+ 45 | file       | file.csv                | stored | 2026-09-25 13:23:13.044041+00
+ 44 | app        | order.created           | stored | 2026-09-25 13:23:12.969072+00
+ 43 | sap        | businesspartner.changed | stored | 2026-09-25 13:23:12.882034+00
+ 42 | hubspot    | contact.propertyChange  | stored | 2026-09-25 13:23:12.809368+00
+ 41 | salesforce | contact.update          | stored | 2026-09-25 13:23:12.723316+00
+ 40 | app        | order.created           | stored | 2026-09-25 13:18:40.980966+00
+ 39 | app        | order.created           | stored | 2026-09-25 13:13:59.735375+00
+(8 rows)
+
+
+## 6 Pytest
+...................                                                      [100%]
+=============================== warnings summary ===============================
+../../.venvs/datalakeskm/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /home/juliunz/.venvs/datalakeskm/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+19 passed, 1 warning in 1.87s
