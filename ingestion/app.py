@@ -7,7 +7,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from ingestion.routes import health, ingest
+from ingestion.routes import files, health, ingest
 from storage.logging_config import configure_logging
 
 
@@ -17,11 +17,11 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title=os.environ.get("APP_NAME", "DataLakeSkM"),
         description=(
-            "Event-driven webhook receiver for the DataLakeSkM foundation. "
-            "Accepts Salesforce, HubSpot, and custom app events; stores raw "
-            "payloads in MinIO and records them in the PostgreSQL catalog."
+            "Event-driven webhook + file receiver for the DataLakeSkM foundation. "
+            "Accepts Salesforce, HubSpot, SAP, custom app events, and CSV/JSON files; "
+            "stores raw payloads in MinIO and records them in the PostgreSQL catalog."
         ),
-        version="0.1.0",
+        version="0.2.0",
     )
 
     app.add_middleware(
@@ -33,6 +33,7 @@ def create_app() -> FastAPI:
 
     app.include_router(health.router)
     app.include_router(ingest.router)
+    app.include_router(files.router)
 
     @app.get("/")
     def root() -> dict[str, str]:
@@ -41,6 +42,7 @@ def create_app() -> FastAPI:
             "docs": "/docs",
             "health": "/health",
             "ingest": "/v1/ingest/{source}",
+            "files": "/v1/files/upload",
         }
 
     return app
