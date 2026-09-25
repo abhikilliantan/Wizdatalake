@@ -4,12 +4,41 @@ Self-hosted, **vendor-agnostic data lake ingestion platform**.
 
 Apps, CRM (Salesforce / HubSpot), flat files, and databases land in **one governed lake** (MinIO) with a **catalog ledger** (PostgreSQL) and an optional **streaming bus** (Redpanda). No AWS / Azure / GCP lock-in.
 
+> **Foundation alignment (read first):**  
+> This repo is the **ingest / raw lake foundation**. It is **not** NEO.  
+> NEO (industry → management agent) will consume this lake later through a **separate Agent Data Access Layer**.  
+> Full contract: **[docs/FOUNDATION_ALIGNMENT.md](docs/FOUNDATION_ALIGNMENT.md)** — BA/PM sign-off.
+
+> **Dev team:** OpenHands implements on **Julius’s repo** (`origin`).  
+> You review there, then **you** promote to Abhishek’s `wizdatalake` when ready.  
+> Guide: **[docs/OPENHANDS_TEAM.md](docs/OPENHANDS_TEAM.md)** · Start UI: `./scripts/start-openhands.sh` → http://localhost:8010/canvas
+
 | | |
 |---|---|
-| **Repo** | https://github.com/JuliusMutugu/DataLakeSkM |
-| **Plan status** | Draft — pending BA / PM sign-off ([issue #2](https://github.com/JuliusMutugu/DataLakeSkM/issues/2)) |
+| **Dev / commits** | https://github.com/JuliusMutugu/DataLakeSkM (`origin`) |
+| **Stakeholder copy** | https://github.com/abhikilliantan/Wizdatalake (`wizdatalake` — human promote only) |
+| **Alignment** | [Foundation ↔ NEO](docs/FOUNDATION_ALIGNMENT.md) |
+| **OpenHands team** | [OPENHANDS_TEAM.md](docs/OPENHANDS_TEAM.md) |
+| **Plan status** | Draft — pending BA / PM sign-off |
 | **MVP horizon** | ~20 working days + UAT (D21–D24) |
-| **Delivery agent** | **OpenHands** (Cursor ACP) — tasks are allocated via GitHub Issues |
+
+---
+
+## 0. What this foundation is (no doubts)
+
+| This foundation **IS** | This foundation is **NOT** |
+|------------------------|----------------------------|
+| How data **gets in** (webhooks, streams, files, DB extract) | How agents **reason** or manage industry KPIs |
+| Raw MinIO lake + Postgres catalog | NEO’s product UI or tool runtime |
+| Ops / BA **observation** presentation | Management executive experience |
+| Prerequisite for NEO | “NEO is connected to company data” |
+
+```text
+NEO (future)  →  Agent Access Layer (future)  →  Curated/semantic (future)
+                              ▲
+                    ★ FOUNDATION (this repo / MVP)
+         Sources → Integration → Raw MinIO + Catalog
+```
 
 ---
 
@@ -177,23 +206,24 @@ Issues: label `acceptance` on the [issue board](https://github.com/JuliusMutugu/
 ### How to allocate a task
 
 1. Open (or create) a GitHub Issue for the day / slice — e.g. `[D2] Platform health…` (#5).
-2. In OpenHands Agent Canvas (http://localhost:8000/canvas):
+2. In OpenHands Agent Canvas (http://localhost:8010/canvas):
    - Workspace: **`/projects/DataLakeSkM`**
    - Agent profile: **`cursor`** (Cursor ACP — uses your Cursor subscription)
 3. Prompt pattern:
 
 ```text
-Work GitHub issue #<N> ([D#] title).
-Read AGENTS.md, docs/architecture.html notes, and docs/INTEGRATION_DEVELOPMENT_PLAN.md for that day.
-Implement only that issue’s checklist. Open a PR linked to #<N>. Do not expand Phase 2 scope.
+Work Julius GitHub issue #<N> ([D#] title).
+Read AGENTS.md and docs/OPENHANDS_TEAM.md.
+Implement only that issue. Push/PR to origin (JuliusMutugu/DataLakeSkM) only.
+Never push remote wizdatalake (Abhishek). Do not expand Phase 2 / NEO scope.
 ```
 
-4. Review the PR → merge → close the issue with evidence (logs, screenshots, object keys).
+4. Review the PR **on Julius’s repo** → merge → when ready, **you** promote to `wizdatalake`.
 
 ### Start / stop OpenHands
 
 ```bash
-./scripts/start-openhands.sh          # Docker + Cursor ACP + this repo mounted
+./scripts/start-openhands.sh          # http://localhost:8010/canvas  (not :8000 — ingestion uses that)
 docker rm -f openhands-datalakeskm    # stop
 ```
 
@@ -215,7 +245,8 @@ Labels: `foundation`, `week-1`…`week-4`, `day`, `acceptance`, `ba-pm`, `epic`,
 
 | Path | Role |
 |------|------|
-| `docs/architecture.html` | Four-layer architecture diagram |
+| `docs/FOUNDATION_ALIGNMENT.md` | **BA/PM/NEO contract** — what foundation is / is not |
+| `docs/architecture.html` | Architecture diagram (foundation boundary + NEO future) |
 | `docs/INTEGRATION_DEVELOPMENT_PLAN.md` | Full BA/PM plan (scope, AC, day sequence) |
 | `docker-compose.yml` | MinIO, Redpanda, Postgres, bucket init |
 | `storage/` | `ObjectStorage` client — partitions + tags |
@@ -261,6 +292,22 @@ Never commit `.env`.
 | Docker compose + `ObjectStorage` + partition tests | Landed (Day 1) |
 | Catalog SQL init | Landed |
 | OpenHands ↔ Cursor ACP | Configured for this repo |
-| **Next engineering issue** | **[#5 D2 — Platform health](https://github.com/JuliusMutugu/DataLakeSkM/issues/5)** |
+| Webhooks (SF / HubSpot / SAP / app) | Landed on delivery branch |
+| Flat file upload + drop folder (**AC-4**, #14) | Landed — `POST /v1/files/upload`, `data/incoming/` |
+| **Next engineering issue** | **[#16 D11 — Redpanda topics](https://github.com/JuliusMutugu/DataLakeSkM/issues/16)** (after D10 PR merge) |
 
-Allocate **#5** to OpenHands to continue.
+### Flat file ingest (AC-4)
+
+```bash
+# Multipart upload
+curl -H "X-Webhook-Secret: $WEBHOOK_SHARED_SECRET" \
+  -F "file=@tests/fixtures/sample_stock.csv" -F "source=file" \
+  http://localhost:8000/v1/files/upload
+
+# Or drop CSV/JSON into data/incoming/ then:
+curl -X POST -H "X-Webhook-Secret: $WEBHOOK_SHARED_SECRET" \
+  http://localhost:8000/v1/files/process-incoming
+# CLI: PYTHONPATH=. python -m connectors.process_incoming
+```
+
+Objects land at `raw/source=file/year=YYYY/month=MM/day=DD/…`.

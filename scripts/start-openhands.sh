@@ -6,7 +6,8 @@ PROJECTS_PATH="${PROJECTS_PATH:-$HOME/projects}"
 OPENHANDS_HOME="${OPENHANDS_HOME:-$HOME/.openhands}"
 IMAGE="${OPENHANDS_IMAGE:-ghcr.io/openhands/agent-canvas:1.23.0}"
 NAME="${OPENHANDS_NAME:-openhands-datalakeskm}"
-PORT="${PORT:-8000}"
+# Ingestion API uses 8000 — keep OpenHands on 8010
+PORT="${PORT:-8010}"
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 AGENT_BIN="${CURSOR_AGENT_BIN:-$HOME/.local/bin/agent}"
 
@@ -26,7 +27,7 @@ if [[ -f "$HOME/.config/cursor/auth.json" ]]; then
   cp -f "$HOME/.config/cursor/auth.json" "$OPENHANDS_HOME/config/cursor/auth.json"
   chmod 644 "$OPENHANDS_HOME/config/cursor/auth.json"
 fi
-chmod -R a+rwX "$OPENHANDS_HOME/config"
+chmod -R a+rwX "$OPENHANDS_HOME/config" 2>/dev/null || true
 
 if docker ps -a --format '{{.Names}}' | grep -qx "$NAME"; then
   echo "Stopping existing container $NAME…"
@@ -99,4 +100,6 @@ echo ""
 echo "Open http://localhost:${PORT}/canvas"
 echo "Workspace: /projects/DataLakeSkM"
 echo "Agent profile: cursor (ACP → your Cursor subscription)"
+echo "Git: push ONLY to origin (JuliusMutugu/DataLakeSkM) — never wizdatalake"
+echo "Team guide: docs/OPENHANDS_TEAM.md"
 echo "Stop: docker rm -f $NAME"

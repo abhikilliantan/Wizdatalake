@@ -1,13 +1,24 @@
 # DataLakeSkM — Integration & Development Plan
 
 **Document type:** Project Plan (BA + PM approval)  
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** Draft — pending BA / PM sign-off  
-**Last updated:** 2026-09-24  
+**Last updated:** 2026-09-25  
 **Owner:** Engineering  
-**Reviewers:** Business Analyst · Project Manager
+**Reviewers:** Business Analyst · Project Manager  
+**Alignment:** See **[FOUNDATION_ALIGNMENT.md](./FOUNDATION_ALIGNMENT.md)** (foundation vs NEO — required reading before scope debates)
 
 ---
+
+## 0. Foundation boundary (locked)
+
+This plan delivers the **DataLakeSkM foundation only**:
+
+- Sources → System Integration → Raw MinIO + Catalog Postgres  
+- Ops / BA presentation (observe intake)  
+
+It does **not** deliver NEO, agent tool APIs, semantic KPIs, or management UX.  
+Those are sequenced **after** MVP UAT per the alignment contract.
 
 ## 1. Executive summary
 

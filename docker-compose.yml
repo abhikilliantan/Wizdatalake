@@ -83,6 +83,25 @@ services:
     networks:
       - datalake
 
+  # Create datalake.ingest on first boot (idempotent). ACL/auth deferred.
+  redpanda-init:
+    image: redpandadata/redpanda:v24.2.4
+    container_name: datalake-redpanda-init
+    depends_on:
+      redpanda:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "/scripts/create-topics.sh"]
+    environment:
+      REDPANDA_BROKERS: redpanda:9092
+      KAFKA_TOPIC_INGEST: ${KAFKA_TOPIC_INGEST:-datalake.ingest}
+      KAFKA_TOPIC_PARTITIONS: ${KAFKA_TOPIC_PARTITIONS:-1}
+      KAFKA_TOPIC_REPLICATION_FACTOR: ${KAFKA_TOPIC_REPLICATION_FACTOR:-1}
+    volumes:
+      - ./infra/redpanda/create-topics.sh:/scripts/create-topics.sh:ro
+    networks:
+      - datalake
+    restart: "no"
+
   # ---------------------------------------------------------------------------
   # PostgreSQL — metadata catalog, application state, audit logs
   # ---------------------------------------------------------------------------

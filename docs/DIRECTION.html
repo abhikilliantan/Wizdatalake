@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DataLakeSkM — Direction</title>
+  <style>
+    :root {
+      --bg: #0e1218;
+      --panel: #171d27;
+      --text: #eef2f7;
+      --muted: #8b9bb0;
+      --done: #3d9a8b;
+      --now: #e8c547;
+      --next: #5b7cfa;
+      --later: #7ec8e3;
+      --line: #2a3544;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(ellipse 70% 40% at 50% 0%, #1a2838, transparent), var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; }
+    h1 {
+      font-family: "IBM Plex Serif", Georgia, serif;
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .lead {
+      color: var(--muted);
+      margin: 0.5rem 0 1.75rem;
+      max-width: 40rem;
+      line-height: 1.5;
+      font-size: 1rem;
+    }
+    .truth {
+      border: 1px solid #3d5a40;
+      background: #142018;
+      border-radius: 10px;
+      padding: 1rem 1.15rem;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .truth strong { color: var(--done); }
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 800px) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .col {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.1rem 1.15rem 1.25rem;
+      min-height: 280px;
+    }
+    .col h2 {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+    .col.done h2 { color: var(--done); }
+    .col.now h2 { color: var(--now); }
+    .col.next h2 { color: var(--next); }
+    .col ul { list-style: none; }
+    .col li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid #222a36;
+      line-height: 1.35;
+    }
+    .col li:last-child { border-bottom: none; }
+    .col li em { color: var(--text); font-style: normal; font-weight: 600; }
+    .flow {
+      margin: 2rem 0 1.5rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.25rem;
+      overflow-x: auto;
+    }
+    .flow h2 {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .steps {
+      display: flex;
+      align-items: stretch;
+      gap: 0.5rem;
+      min-width: 720px;
+    }
+    .step {
+      flex: 1;
+      border-radius: 8px;
+      padding: 0.85rem 0.7rem;
+      text-align: center;
+      font-size: 0.8rem;
+      line-height: 1.35;
+      border: 1px solid var(--line);
+      background: #121820;
+    }
+    .step b { display: block; color: var(--text); margin-bottom: 0.25rem; font-size: 0.85rem; }
+    .step.d { border-color: var(--done); color: var(--muted); }
+    .step.n { border-color: var(--now); background: #2a2410; color: var(--muted); }
+    .step.f { border-color: var(--later); color: var(--muted); opacity: 0.85; }
+    .arrow { align-self: center; color: #55657a; font-size: 1.2rem; }
+    .links {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .links a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      font-size: 0.9rem;
+    }
+    .links a span { display: block; color: var(--muted); font-size: 0.78rem; margin-top: 0.25rem; }
+    .links a:hover { border-color: var(--now); }
+    footer {
+      margin-top: 2rem;
+      color: #66788f;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Where we’re going</h1>
+    <p class="lead">
+      One screen so you can see the direction without reading the whole plan.
+      This repo builds the <em>data foundation</em>. NEO (management agent) comes after.
+    </p>
+
+    <div class="truth">
+      <strong>Direction in one line:</strong>
+      Get industrial + CRM data into a governed raw lake first →
+      then give NEO a safe way to ask that lake questions.
+      We are on the first half.
+    </div>
+
+    <div class="flow">
+      <h2>Build sequence</h2>
+      <div class="steps">
+        <div class="step d"><b>1 · Land data</b>webhooks · stream · files · DB extract</div>
+        <div class="arrow">→</div>
+        <div class="step d"><b>2 · Store + audit</b>MinIO partitions · catalog</div>
+        <div class="arrow">→</div>
+        <div class="step n"><b>3 · Demo NOW</b>SF / HubSpot / app live</div>
+        <div class="arrow">→</div>
+        <div class="step f"><b>4 · Serve agents</b>catalog API · tools · authZ</div>
+        <div class="arrow">→</div>
+        <div class="step f"><b>5 · NEO</b>industry → management</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="col done">
+        <h2>Done (working)</h2>
+        <ul>
+          <li><em>Docker stack</em> — MinIO :9006, Postgres :5433, Redpanda</li>
+          <li><em>ObjectStorage</em> — partitions + tags into MinIO</li>
+          <li><em>Integration hub</em> — adapters + route</li>
+          <li><em>FastAPI webhooks</em> — Salesforce, HubSpot, app</li>
+          <li><em>Catalog</em> — every write gets a Postgres row</li>
+          <li><em>Alignment docs</em> — foundation ≠ NEO</li>
+          <li><em>2pm demo script</em> — verified end-to-end</li>
+        </ul>
+      </section>
+      <section class="col now">
+        <h2>Now (this branch)</h2>
+        <ul>
+          <li><em>feature/mvp-ingestion-demo</em></li>
+          <li>Show live ingest at 2pm</li>
+          <li>Swagger: localhost:8000/docs</li>
+          <li>MinIO console: :9007</li>
+          <li>Prove AC-1, AC-2, AC-3, AC-7</li>
+          <li>Keep scope on foundation only</li>
+        </ul>
+      </section>
+      <section class="col next">
+        <h2>Next (after demo)</h2>
+        <ul>
+          <li><em>File drop</em> ingest path</li>
+          <li><em>Redpanda</em> consumer → MinIO</li>
+          <li><em>DB batch extract</em> Postgres/MySQL</li>
+          <li>Hardening + UAT pack</li>
+          <li>Then: Agent Data Access Layer</li>
+          <li>Then: NEO on top</li>
+        </ul>
+      </section>
+    </div>
+
+    <h2 style="margin:2rem 0 0.75rem;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)">Open these</h2>
+    <div class="links">
+      <a href="./architecture.html">Architecture diagram
+        <span>Layers + NEO future strip</span></a>
+      <a href="./FOUNDATION_ALIGNMENT.md">Foundation alignment
+        <span>BA/PM contract — what we are / aren’t</span></a>
+      <a href="./DEMO_RUNBOOK.md">2pm demo runbook
+        <span>Talk track + URLs</span></a>
+      <a href="./INTEGRATION_DEVELOPMENT_PLAN.md">20-day plan
+        <span>Day-by-day + acceptance</span></a>
+      <a href="http://localhost:8000/docs">Live API (Swagger)
+        <span>Try Salesforce / HubSpot posts</span></a>
+      <a href="http://localhost:9007">MinIO console
+        <span>See objects in datalake-raw</span></a>
+    </div>
+
+    <footer>
+      Branch: feature/mvp-ingestion-demo · Repo: abhikilliantan/Wizdatalake
+    </footer>
+  </div>
+</body>
+</html>
