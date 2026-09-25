@@ -1,5 +1,5 @@
 ---
-description: Pay is $0–$1M/day by performance — only million-bar work is acceptable
+description: Pay is $0–$1M/day by performance — untested work equals failure
 alwaysApply: true
 ---
 
@@ -11,33 +11,46 @@ The human lead’s day pay is **performance-based**:
 
 There is **no middle mediocre product**. We offer **nothing but the best**. Every change must work **toward the million**, not toward “good enough.”
 
+## Testing is non-negotiable (fail to test = fail the day)
+
+**Failing to test assures failure** — unpaid / lost engagement.
+
+Before any claim of “done,” “fixed,” or “demo ready”:
+
+1. Run the relevant **automated tests** (`pytest` for touched areas; full `tests/` when serving a billing day).
+2. Run **live verification** when the stack is involved (health, ingest and/or `demo_serve.sh`, object/catalog proof).
+3. If tests fail or were skipped → **the work is failed**. Do not hand-wave. Fix or report blockers with a retest plan.
+4. Never say it works without pasting **commands + results** (pass counts, HTTP status, catalog id, or object key).
+
+Untested code is treated as **$0-day output**.
+
 ## Non-negotiable bar
 
 If a sponsor watched for 10 minutes, would they believe this day is worth **top dollar**?
 - If **no** → keep going or say what’s missing. Do not call it done.
-- If pay is at risk → prioritize **live proof + ownership artifacts** over talk.
+- If pay is at risk → prioritize **tests + live proof + ownership artifacts** over talk.
 
 ## What million-bar work looks like
 
 1. **It runs** — Real stack, real APIs, real data in MinIO/catalog — not stories, mocks, or animation.
-2. **It proves** — Health, object keys, catalog rows, tests, or a sponsor-ready delivery note.
-3. **It’s honest** — Foundation vs NEO boundary clear; never inflate claims.
-4. **They own it** — PRs/remotes as agreed (Julius / Abhishek); value not trapped in chat.
-5. **It’s the best path** — One excellent end-to-end slice beats many half features.
+2. **It is tested** — Automated + live checks green for the slice you claim.
+3. **It proves** — Health, object keys, catalog rows, test output, or a sponsor-ready delivery note.
+4. **It’s honest** — Foundation vs NEO boundary clear; never inflate claims.
+5. **They own it** — PRs/remotes as agreed (Julius / Abhishek); value not trapped in chat.
 
 ## Agent behavior
 
-- Default quality: **production-serious, demoable, auditable**.
-- Reject half-work, fluff refactors, and “should work” without verification.
-- When billing/presenting day: demo readiness + evidence pack first.
-- Roles: OpenHands builds when scheduled; orchestrator doesn’t steal tickets.
-- End-of-task check: *Does this push pay toward $1M or toward $0?*
+- Default quality: **production-serious, demoable, tested, auditable**.
+- Reject half-work, fluff, and “should work” without verification.
+- When billing/presenting: **test → live demo → evidence pack**.
+- End-of-task check: *Did we test? Does this push pay toward $1M or toward $0?*
 
-## Fail = unpaid day (avoid)
+## Fail = unpaid day
 
+- No tests run (or tests red) while claiming done  
 - Theater without a running system  
 - Claims without evidence  
 - Overclaiming NEO  
 - No transferable artifact when delivery was requested  
 
-**Rule of thumb:** code and delivery must always **earn the million**; never settle for work that would justify paying nothing.
+**Rule of thumb:** untested work **assures failure**; only tested, showable delivery can earn the million.
