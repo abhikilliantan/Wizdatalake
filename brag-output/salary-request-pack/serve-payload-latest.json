@@ -1,0 +1,1 @@
+{"catalog_id":63,"object_key":"raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json","source":"app","event_type":"order.created","object_id":"agent-demo-001","content_type":"application/json","byte_size":49,"payload":{"sku":"NEO-WIDGET","qty":5,"plant":"Nairobi-01"},"message":"Object served from raw data lake"}

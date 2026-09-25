@@ -1,0 +1,13 @@
+Day 2 — DataLakeSkM live demo (Sales / Product / NEO sponsor)
+
+What we showed live (not slides): multi-source ingest (Salesforce, HubSpot, SAP, app, files) into a self-hosted MinIO lake with a Postgres audit catalog — then an agent serving API that discovers events, fetches payloads from MinIO, and issues time-limited download URLs.
+
+Why it matters for NEO: the management agent can only be enforced when it reads governed ground truth. Day 2 proves extract → load → audit → serve.
+
+Proof this session: health ok; catalog rows 41–46+; demo_ingest + demo_serve green; Redpanda datalake.ingest smoke; pytest 19 passed.
+
+Ask: accept foundation + serve MVP as the NEO enforcement base; next slice = authZ on serve, stream flush, DB extracts.
+
+Run in the room: ./scripts/simulate_day2_demo.sh
+Script: brag-output/day2-demo.md
+Evidence: brag-output/day2-live-evidence/
