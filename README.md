@@ -4,12 +4,35 @@ Self-hosted, **vendor-agnostic data lake ingestion platform**.
 
 Apps, CRM (Salesforce / HubSpot), flat files, and databases land in **one governed lake** (MinIO) with a **catalog ledger** (PostgreSQL) and an optional **streaming bus** (Redpanda). No AWS / Azure / GCP lock-in.
 
+> **Foundation alignment (read first):**  
+> This repo is the **ingest / raw lake foundation**. It is **not** NEO.  
+> NEO (industry → management agent) will consume this lake later through a **separate Agent Data Access Layer**.  
+> Full contract: **[docs/FOUNDATION_ALIGNMENT.md](docs/FOUNDATION_ALIGNMENT.md)** — BA/PM sign-off.
+
 | | |
 |---|---|
-| **Repo** | https://github.com/JuliusMutugu/DataLakeSkM |
-| **Plan status** | Draft — pending BA / PM sign-off ([issue #2](https://github.com/JuliusMutugu/DataLakeSkM/issues/2)) |
+| **Repo** | https://github.com/abhikilliantan/Wizdatalake |
+| **Alignment** | [Foundation ↔ NEO](docs/FOUNDATION_ALIGNMENT.md) |
+| **Plan status** | Draft — pending BA / PM sign-off |
 | **MVP horizon** | ~20 working days + UAT (D21–D24) |
-| **Delivery agent** | **OpenHands** (Cursor ACP) — tasks are allocated via GitHub Issues |
+
+---
+
+## 0. What this foundation is (no doubts)
+
+| This foundation **IS** | This foundation is **NOT** |
+|------------------------|----------------------------|
+| How data **gets in** (webhooks, streams, files, DB extract) | How agents **reason** or manage industry KPIs |
+| Raw MinIO lake + Postgres catalog | NEO’s product UI or tool runtime |
+| Ops / BA **observation** presentation | Management executive experience |
+| Prerequisite for NEO | “NEO is connected to company data” |
+
+```text
+NEO (future)  →  Agent Access Layer (future)  →  Curated/semantic (future)
+                              ▲
+                    ★ FOUNDATION (this repo / MVP)
+         Sources → Integration → Raw MinIO + Catalog
+```
 
 ---
 
@@ -215,7 +238,8 @@ Labels: `foundation`, `week-1`…`week-4`, `day`, `acceptance`, `ba-pm`, `epic`,
 
 | Path | Role |
 |------|------|
-| `docs/architecture.html` | Four-layer architecture diagram |
+| `docs/FOUNDATION_ALIGNMENT.md` | **BA/PM/NEO contract** — what foundation is / is not |
+| `docs/architecture.html` | Architecture diagram (foundation boundary + NEO future) |
 | `docs/INTEGRATION_DEVELOPMENT_PLAN.md` | Full BA/PM plan (scope, AC, day sequence) |
 | `docker-compose.yml` | MinIO, Redpanda, Postgres, bucket init |
 | `storage/` | `ObjectStorage` client — partitions + tags |

@@ -3,13 +3,18 @@
 > **Primary executor:** OpenHands (Cursor ACP). Humans allocate GitHub Issues; you implement them and open PRs.
 
 ## Mission
-Build a **self-hosted, vendor-agnostic data lake ingestion platform** (MVP ~20 working days). Ingest apps, CRM (Salesforce/HubSpot), flat files, and databases into **MinIO**, with **Redpanda** for streaming and **PostgreSQL** for the metadata catalog. No AWS/Azure/GCP lock-in.
+Build a **self-hosted, vendor-agnostic data lake ingestion foundation** (MVP ~20 working days). Ingest apps, CRM (Salesforce/HubSpot), flat files, and databases into **MinIO**, with **Redpanda** for streaming and **PostgreSQL** for the metadata catalog. No AWS/Azure/GCP lock-in.
+
+## Hard boundary (do not blur)
+- **This repo = foundation** (ingest → raw lake → catalog → ops observe).
+- **NEO** (industry → management agent) is a **later product**. Do not implement NEO tools, KPI semantics, or agent RAG in MVP issues.
+- Contract: `docs/FOUNDATION_ALIGNMENT.md` — read before expanding scope.
 
 ## How you get work
 1. You are assigned a GitHub issue (title like `[D2] …` or `[AC-7] …`).
-2. Read that issue checklist + `README.md` (design + plan) + this file.
+2. Read that issue checklist + `README.md` + `docs/FOUNDATION_ALIGNMENT.md` + this file.
 3. Implement **only** that issue. Link commits/PR to `#<issue>`.
-4. Do not expand Phase 2 scope (full CDC, warehouses, SSO, multi-tenant).
+4. Do not expand Phase 2 scope (full CDC, warehouses, SSO, multi-tenant) or NEO/agent-access features.
 
 ## Current focus
 - **Layer C — System Integration** is the active MVP delivery scope.
@@ -17,15 +22,18 @@ Build a **self-hosted, vendor-agnostic data lake ingestion platform** (MVP ~20 w
 - Next human allocation: **D2 platform health** (`docker compose up` + `ObjectStorage.put_json` smoke) — issue #5.
 
 ## Architecture (read this first)
+- **Alignment (foundation vs NEO):** `docs/FOUNDATION_ALIGNMENT.md`
 - Visual: `docs/architecture.html`
 - Plan + AC-1…AC-9: `docs/INTEGRATION_DEVELOPMENT_PLAN.md`
 - Human overview: `README.md`
 
-Four layers:
-1. **A Presentation** — dashboards/reports (consume only)
+Four layers (foundation):
+1. **A Presentation** — ops/BA dashboards (consume only — **not** NEO UI)
 2. **B Sources** — apps, Salesforce, HubSpot, files, DBs
 3. **C System Integration (NOW)** — hub: normalize → tag → route; event-driven (`ingestion/`) + streaming (`streaming/`) + file/DB connectors
 4. **D Lake + catalog** — MinIO partitions + Postgres `ingestion_events`
+
+Above the foundation (do not build in MVP): Agent Data Access Layer → NEO.
 
 ## Repo map
 | Path | Role |
@@ -39,9 +47,9 @@ Four layers:
 | `data/incoming/` | File drop zone |
 
 ## GitHub
-- Repo: https://github.com/JuliusMutugu/DataLakeSkM
+- Repo: https://github.com/abhikilliantan/Wizdatalake
 - Work in small PRs tied to day issues (`[D2]`, `[D3]`, …). Reference issue numbers in commits.
-- Do not expand Phase 2 (full CDC, warehouses, SSO) into MVP.
+- Do not expand Phase 2 (full CDC, warehouses, SSO) or NEO into MVP.
 
 ## Working rules
 - Prefer implementing against the plan’s day sequence and the **assigned** GitHub issue only.
