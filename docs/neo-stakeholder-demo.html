@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEO foundation — live demo</title>
+  <style>
+    :root {
+      --bg: #f3efe6;
+      --ink: #1a1f1c;
+      --muted: #5c675f;
+      --panel: #fffdf8;
+      --line: #d4cdc0;
+      --go: #1f6b4a;
+      --go-soft: #e3f2eb;
+      --warn: #8a5a12;
+      --bad: #8b2e2e;
+      --accent: #c45c26;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, #e8dcc8, transparent),
+        var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    header {
+      padding: 2.25rem 1.5rem 1rem;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .brand {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      margin-bottom: 0.6rem;
+    }
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin: 0 0 0.75rem;
+      max-width: 18ch;
+    }
+    .lead {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 38rem;
+      line-height: 1.45;
+      margin: 0;
+    }
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 3rem;
+      display: grid;
+      gap: 1rem;
+    }
+    .row {
+      display: grid;
+      gap: 1rem;
+    }
+    @media (min-width: 760px) {
+      .row.two { grid-template-columns: 1fr 1.4fr; }
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 1.1rem 1.2rem 1.25rem;
+    }
+    .panel h2 {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 0.85rem;
+      font-weight: 600;
+    }
+    .status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+    .pill {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 0.78rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .pill.ok { background: var(--go-soft); border-color: #9ecbb4; color: var(--go); }
+    .pill.bad { background: #f8e8e8; border-color: #e0b4b4; color: var(--bad); }
+    .neo-box {
+      border-left: 3px solid var(--accent);
+      padding-left: 0.9rem;
+      font-size: 1.02rem;
+      line-height: 1.45;
+    }
+    .neo-box strong { color: var(--ink); }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    button, .linkbtn {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      padding: 0.7rem 1rem;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+    }
+    button.secondary, .linkbtn.secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    button:disabled { opacity: 0.5; cursor: wait; }
+    .msg {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+      min-height: 1.2em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 0.86rem;
+    }
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.35rem;
+      border-bottom: 1px solid var(--line);
+    }
+    td {
+      padding: 0.65rem 0.35rem;
+      border-bottom: 1px solid #eee7da;
+      vertical-align: top;
+    }
+    .src {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+    .key {
+      color: var(--muted);
+      font-size: 0.75rem;
+      word-break: break-all;
+    }
+    footer {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 1.5rem 2.5rem;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Live demo · Foundation under NEO</div>
+    <h1>What landed today for the NEO model</h1>
+    <p class="lead">
+      NEO is the management agent. This screen shows the governed data trail it will enforce against —
+      live from your machine, not a slide.
+    </p>
+  </header>
+
+  <main>
+    <div class="row two">
+      <section class="panel">
+        <h2>System ready?</h2>
+        <div class="status" id="status"></div>
+        <div class="neo-box">
+          <strong>Why NEO cares:</strong> if the store and audit ledger are green,
+          the agent later has a place to ground decisions — not guess from email attachments.
+        </div>
+        <div class="actions">
+          <button type="button" id="btnRun">Run live intake now</button>
+          <button type="button" class="secondary" id="btnRefresh">Refresh evidence</button>
+        </div>
+        <p class="msg" id="msg">Waiting…</p>
+      </section>
+
+      <section class="panel">
+        <h2>How this enforces NEO (plain language)</h2>
+        <ol style="margin:0; padding-left:1.15rem; color:var(--muted); line-height:1.55;">
+          <li><strong style="color:var(--ink)">One filing cabinet</strong> — CRM, ERP, apps, and files arrive in the same lake.</li>
+          <li><strong style="color:var(--ink)">Proof of landing</strong> — every row below is an audit entry NEO can be held to.</li>
+          <li><strong style="color:var(--ink)">Labels for rules</strong> — source + date paths so later access rules can lock who sees what.</li>
+        </ol>
+        <div class="actions">
+          <a class="linkbtn secondary" href="http://localhost:9007" target="_blank" rel="noopener">Open object store</a>
+          <a class="linkbtn secondary" href="http://localhost:8000/docs" target="_blank" rel="noopener">Open API (technical)</a>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel">
+      <h2>Evidence just now — catalog (newest first)</h2>
+      <div id="tableWrap">Loading…</div>
+    </section>
+  </main>
+
+  <footer>
+    Foundation only. NEO chat / KPI answers / agent actions are the next layer on top of this trail.
+    Object store login: minioadmin / minioadmin · bucket datalake-raw
+  </footer>
+
+  <script>
+    const API = "http://localhost:8000";
+    const SECRET = "dev-webhook-secret-change-me";
+
+    const fixtures = {
+      salesforce: { path: "/v1/ingest/salesforce", body: {"organizationId": "00D5g000004XXXX", "actionId": "04k5g000000XXXX", "sessionId": "00D5g000004XXXX!AQoAQH0dMHZ4", "enterpriseId": "00D5g000004XXXX", "data": {"schema": "ContactChangeEvent", "payload": {"ChangeEventHeader": {"entityName": "Contact", "recordIds": ["0035g00000XXXXX"], "changeType": "UPDATE", "changeOrigin": "com.salesforce.api.soap.v59.0", "transactionKey": "000000000000000", "sequenceNumber": 1, "commitTimestamp": 1727172000000, "commitUser": "0055g00000XXXXX"}, "Id": "0035g00000XXXXX", "Email": "jane.doe@example.com", "FirstName": "Jane", "LastName": "Doe", "AccountId": "0015g00000XXXXX", "LastModifiedDate": "2024-09-24T08:00:00.000Z"}}, "createdDate": "2024-09-24T08:00:00.000Z"} },
+      hubspot: { path: "/v1/ingest/hubspot", body: {"objectId": 451, "propertyName": "email", "propertyValue": "john.smith@example.com", "changeSource": "CRM", "eventId": "100", "subscriptionId": 212121, "portalId": 999999, "appId": 12345, "occurredAt": 1727172000000, "subscriptionType": "contact.propertyChange", "attemptNumber": 0, "objectTypeId": "0-1", "changeFlag": "NEW"} },
+      sap: { path: "/v1/ingest/sap", body: {"specversion": "1.0", "type": "sap.s4.beh.businesspartner.v1.BusinessPartner.Changed.v1", "source": "/default/sap.s4.beh/0000000001", "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890", "time": "2026-09-25T05:15:00.000Z", "datacontenttype": "application/json", "data": {"BusinessPartner": "1000123", "BusinessPartnerCategory": "2", "BusinessPartnerFullName": "Acme Industrial Ltd", "BusinessPartnerUUID": "00163e0f-9a2b-1edb-a1c2-d3e4f5678901", "SearchTerm1": "ACME", "Plant": "Nairobi-01", "SystemID": "S4H_PROD", "LastChangeDateTime": "2026-09-25T05:14:58.000Z", "ChangedFields": ["BusinessPartnerFullName", "SearchTerm1"]}} },
+      app: {
+        path: "/v1/ingest/app",
+        body: {
+          "event_type": "order.created",
+          "object_id": "demo-ord-neo-01",
+          "payload": {"sku": "WIDGET", "qty": 3, "plant": "Nairobi-01"},
+          "tags": {"demo": "true", "neo": "stakeholder"}
+        }
+      }
+    };
+
+    function pill(label, ok) {
+      const s = document.createElement("span");
+      s.className = "pill " + (ok ? "ok" : "bad");
+      s.textContent = label;
+      return s;
+    }
+
+    async function refreshHealth() {
+      const box = document.getElementById("status");
+      box.innerHTML = "";
+      try {
+        const h = await fetch(API + "/health").then((r) => r.json());
+        box.appendChild(pill("Pipeline " + h.status, h.status === "ok"));
+        box.appendChild(pill("Object store", !!h.minio_ok));
+        box.appendChild(pill("Audit ledger", !!h.catalog_ok));
+        box.appendChild(pill((h.sources || []).length + " source adapters", true));
+      } catch (e) {
+        box.appendChild(pill("API unreachable — start ingest on :8000", false));
+      }
+    }
+
+    async function refreshCatalog() {
+      const wrap = document.getElementById("tableWrap");
+      try {
+        const data = await fetch(API + "/v1/catalog/recent?limit=12").then((r) => r.json());
+        if (!data.events || !data.events.length) {
+          wrap.textContent = "No events yet — click “Run live intake now”.";
+          return;
+        }
+        const table = document.createElement("table");
+        table.innerHTML = "<thead><tr><th>Source</th><th>What happened</th><th>Where it lives (for NEO later)</th><th>When</th></tr></thead>";
+        const tb = document.createElement("tbody");
+        for (const e of data.events) {
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            '<td class="src">' + (e.source || "") + "</td>" +
+            "<td>" + (e.event_type || "") + "<div class='key'>id " + (e.object_id || "") + " · catalog #" + e.id + "</div></td>" +
+            '<td><div class="key">' + (e.object_key || "") + "</div></td>" +
+            "<td>" + String(e.created_at || "").replace("T", " ").replace("Z", "") + "</td>";
+          tb.appendChild(tr);
+        }
+        table.appendChild(tb);
+        wrap.innerHTML = "";
+        wrap.appendChild(table);
+      } catch (e) {
+        wrap.textContent = "Could not load catalog.";
+      }
+    }
+
+    async function runIntake() {
+      const btn = document.getElementById("btnRun");
+      const msg = document.getElementById("msg");
+      btn.disabled = true;
+      msg.textContent = "Sending Salesforce → HubSpot → SAP → app → file…";
+      const hdr = {
+        "Content-Type": "application/json",
+        "X-Webhook-Secret": SECRET
+      };
+      try {
+        for (const name of ["salesforce", "hubspot", "sap", "app"]) {
+          const f = fixtures[name];
+          const res = await fetch(API + f.path, {
+            method: "POST",
+            headers: hdr,
+            body: JSON.stringify(f.body)
+          });
+          if (!res.ok) throw new Error(name + " failed: " + res.status);
+        }
+        // Minimal CSV as multipart
+        const csv = "sku,qty,plant\nWIDGET,3,Nairobi-01\n";
+        const fd = new FormData();
+        fd.append("file", new Blob([csv], { type: "text/csv" }), "neo_demo_stock.csv");
+        fd.append("source", "file");
+        const fr = await fetch(API + "/v1/files/upload", {
+          method: "POST",
+          headers: { "X-Webhook-Secret": SECRET },
+          body: fd
+        });
+        if (!fr.ok) throw new Error("file upload failed");
+        msg.textContent = "Live intake complete — proof rows refreshed below.";
+        await refreshHealth();
+        await refreshCatalog();
+      } catch (e) {
+        msg.textContent = String(e.message || e);
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    document.getElementById("btnRun").addEventListener("click", runIntake);
+    document.getElementById("btnRefresh").addEventListener("click", async () => {
+      document.getElementById("msg").textContent = "Refreshing…";
+      await refreshHealth();
+      await refreshCatalog();
+      document.getElementById("msg").textContent = "Updated from live systems.";
+    });
+
+    refreshHealth();
+    refreshCatalog();
+    setInterval(() => { refreshHealth(); refreshCatalog(); }, 8000);
+  </script>
+</body>
+</html>
