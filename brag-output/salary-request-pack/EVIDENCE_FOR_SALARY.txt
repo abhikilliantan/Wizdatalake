@@ -1,0 +1,126 @@
+DataLakeSkM — Day 2 delivery evidence for salary / engagement request
+Captured (UTC): 2026-09-25T13:38:27Z
+Commit: b415f42
+Branch: feature/d10-file-ingest
+
+========== 1. HEALTH ==========
+{
+    "status": "ok",
+    "app": "DataLakeSkM",
+    "minio_ok": true,
+    "catalog_ok": true,
+    "sources": [
+        "app",
+        "custom",
+        "hubspot",
+        "salesforce",
+        "sap"
+    ]
+}
+
+========== 2. INGEST DEMO (abbrev) ==========
+    "status": "ok",
+    "status": "stored",
+    "source": "salesforce",
+    "object_key": "raw/source=salesforce/year=2024/month=09/day=24/contact.update_0035g00000XXXXX.json",
+    "catalog_id": 58,
+    "message": "Event stored in raw data lake"
+    "status": "stored",
+    "source": "hubspot",
+    "object_key": "raw/source=hubspot/year=2024/month=09/day=24/contact.propertychange_451.json",
+    "catalog_id": 59,
+    "message": "Event stored in raw data lake"
+    "status": "stored",
+    "source": "sap",
+    "object_key": "raw/source=sap/year=2026/month=09/day=25/businesspartner.changed_1000123.json",
+    "catalog_id": 60,
+    "message": "Event stored in raw data lake"
+    "status": "stored",
+    "source": "app",
+    "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_demo-ord-001.json",
+    "catalog_id": 61,
+    "message": "Event stored in raw data lake"
+    "status": "stored",
+    "source": "file",
+    "object_key": "raw/source=file/year=2026/month=09/day=25/file.csv_2ffa34dd-c0e4-4ff6-8ab0-2df131a0e498.json",
+    "catalog_id": 62,
+    "message": "File 'sample_stock.csv' stored in raw data lake"
+            "object_key": "raw/source=file/year=2026/month=09/day=25/file.csv_2ffa34dd-c0e4-4ff6-8ab0-2df131a0e498.json",
+            "source": "file",
+            "status": "stored",
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_demo-ord-001.json",
+            "source": "app",
+            "status": "stored",
+            "object_key": "raw/source=sap/year=2026/month=09/day=25/businesspartner.changed_1000123.json",
+            "source": "sap",
+            "status": "stored",
+            "object_key": "raw/source=hubspot/year=2024/month=09/day=24/contact.propertychange_451.json",
+            "source": "hubspot",
+            "status": "stored",
+            "object_key": "raw/source=salesforce/year=2024/month=09/day=24/contact.update_0035g00000XXXXX.json",
+            "source": "salesforce",
+
+========== 3. AGENT SERVE ==========
+    "status": "ok",
+    "status": "stored",
+    "source": "app",
+    "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+    "catalog_id": 63,
+    "message": "Event stored in raw data lake"
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+            "source": "app",
+            "status": "stored",
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_demo-ord-001.json",
+            "source": "app",
+            "status": "stored",
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+            "source": "app",
+            "status": "stored",
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_demo-ord-001.json",
+            "source": "app",
+            "status": "stored",
+            "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_demo-ord-neo-01.json",
+            "source": "app",
+            "status": "stored",
+Using catalog_id=63
+    "catalog_id": 63,
+    "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+    "source": "app",
+        "sku": "NEO-WIDGET",
+        "qty": 5,
+        "plant": "Nairobi-01"
+    "message": "Object served from raw data lake"
+    "object_key": "raw/source=app/year=2026/month=09/day=25/order.created_agent-demo-001.json",
+    "url": "http://localhost:9006/datalake-raw/raw/source%3Dapp/year%3D2026/month%3D09/day%3D25/order.created_agent-demo-001.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20260925%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260925T133829Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=a025b5a0574f7f6ddfd851521886b44b932566985136b2cbd5cdafd8fa90d2c1",
+    "message": "Time-limited GET URL for external download"
+
+========== 4. CATALOG SQL ==========
+ id |   source   |       event_type        | status |          created_at           
+----+------------+-------------------------+--------+-------------------------------
+ 63 | app        | order.created           | stored | 2026-09-25 13:38:28.649829+00
+ 62 | file       | file.csv                | stored | 2026-09-25 13:38:28.392979+00
+ 61 | app        | order.created           | stored | 2026-09-25 13:38:28.313284+00
+ 60 | sap        | businesspartner.changed | stored | 2026-09-25 13:38:28.237898+00
+ 59 | hubspot    | contact.propertyChange  | stored | 2026-09-25 13:38:28.158218+00
+ 58 | salesforce | contact.update          | stored | 2026-09-25 13:38:28.0867+00
+ 57 | app        | order.created           | stored | 2026-09-25 13:36:26.05642+00
+ 56 | file       | file.csv                | stored | 2026-09-25 13:36:25.731322+00
+ 55 | app        | order.created           | stored | 2026-09-25 13:36:25.626323+00
+ 54 | sap        | businesspartner.changed | stored | 2026-09-25 13:36:25.505659+00
+(10 rows)
+
+
+========== 5. PYTEST ==========
+...................                                                      [100%]
+=============================== warnings summary ===============================
+../../.venvs/datalakeskm/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /home/juliunz/.venvs/datalakeskm/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+19 passed, 1 warning in 1.87s
+
+========== 6. REPOS / PRs ==========
+Julius: https://github.com/JuliusMutugu/DataLakeSkM/pull/46
+Abhishek main (serving + Day2 merged via PRs 1-5): https://github.com/abhikilliantan/Wizdatalake
+Supporting doc: docs/DAY2_DELIVERY_AND_VALUE.md
