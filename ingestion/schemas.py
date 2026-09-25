@@ -45,3 +45,24 @@ class CatalogEvent(BaseModel):
 class CatalogListResponse(BaseModel):
     count: int
     events: list[CatalogEvent] = Field(default_factory=list)
+
+
+class ServeObjectResponse(BaseModel):
+    """Payload served from MinIO for an agent or application."""
+
+    catalog_id: Optional[int] = None
+    object_key: str
+    source: str
+    event_type: str
+    object_id: Optional[str] = None
+    content_type: str
+    byte_size: int
+    payload: Any
+    message: str = "Object served from raw data lake"
+
+
+class PresignResponse(BaseModel):
+    object_key: str
+    expires_seconds: int
+    url: str
+    message: str = "Time-limited GET URL for external download"

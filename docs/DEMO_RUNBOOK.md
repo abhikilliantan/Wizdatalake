@@ -38,8 +38,12 @@ Open in browser:
 4. **HubSpot** — Same flow, different source tag.
 5. **SAP** — BusinessPartner CloudEvent → `raw/source=sap/…` (ERP industrial story).
 6. **Flat file (AC-4)** — Upload `tests/fixtures/sample_stock.csv` via `/v1/files/upload` (or drop into `data/incoming/` and `POST /v1/files/process-incoming`) → `raw/source=file/year=…/month=…/day=…`.
-7. **Catalog** — `/v1/catalog/recent` or SQL: every write has a row.
-8. **MinIO console** — Browse `datalake-raw` → `raw/source=…/year=…/month=…/day=…`.
+7. **Agent serve (MVP access layer)** — `./scripts/demo_serve.sh` or OpenAPI tag **serve**:
+   - `GET /v1/serve/events?source=app` (header `X-Agent-Key`)
+   - `GET /v1/serve/events/{id}` → payload from MinIO
+   - `GET /v1/serve/objects/presign?key=…` → time-limited download URL
+8. **Catalog** — `/v1/catalog/recent` or SQL: every write has a row.
+9. **MinIO console** — Browse `datalake-raw` → `raw/source=…/year=…/month=…/day=…`.
 
 ---
 
